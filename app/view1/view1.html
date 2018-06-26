@@ -7,29 +7,29 @@
   <select ng-model="myOrderProperty">
     <option value="id">ID</option>
     <option value="name">Имени</option>
-    <option value="weight">Весу</option>
-    <option value="weight">Весу по убыванию</option>
+    <option value="weight">Весу (по возрастанию)</option>
+    <option value="-weight">Весу (по убыванию)</option>
     <option value="height">Росту</option>
   </select>
 </div>
 <div class="col">
   Фильтр по типам:
-  <select ng-model="myOrderType" ng-options="pokemon.type[0] as pokemon.type[0] for pokemon in pokemons">
-    <option value> All </option>
+  <select ng-model="myTypeProperty" onchange="console.log(this.selectedOptions[0].value); ">
+    <option value=""> All </option>
+    <option value="{{pokemon.type[0]}}" ng-repeat="pokemon in pokemons">{{pokemon.type[0]}}</option>
   </select>
 </div>
 <ul>
-  <li ng-repeat="pokemon in pokemons | filter: myOrderType | orderBy: myOrderProperty:reverse">
+  <li ng-repeat="pokemon in pokemons | filter: {type: myTypeProperty} | orderBy: myOrderProperty">
     <p>{{$index + 1}}</p>
     <img src="{{pokemon.ThumbnailImage}}" ng-click="_alert(pokemon.name)">
     <small>ID #{{pokemon.id }}</small>
-    <h1>{{pokemon.name}}</h1>
+    <h1 ng-class="color(pokemon.type[0])">{{pokemon.name}}</h1>
     <p>Вес: {{pokemon.weight}}, рост: {{pokemon.height}}</p>
-    <p>Тип: {{pokemon.type [0]}}</p>
+    <p>Тип: {{pokemon.type[0]}}</p>
     <hr/>
   </li>
 </ul>
-<p ng-show="myOrderType">
-  Выведены покемоны, типа
-  {{myOrderType}}
+<p ng-show="myTypeProperty">
+  Выведены покемоны, типа {{myTypeProperty}}
 </p>

@@ -127,9 +127,21 @@ angular.module('myApp.view1', ['ngRoute'])
     ];
 
     $scope.myOrderProperty = 'id';
-    $scope.reverse = false;
+    $scope.myTypeProperty = '';
     
     $scope._alert = function (name) {
       alert(name);
+    };
+
+    $scope.color = function (type) {
+      if(type === 'fire') {
+        return 'red';
+      }
+      if(type === 'water') {
+        return 'blue';
+      }
+      if(type === 'grass') {
+        return 'green';
+      }
     }
   });
